@@ -1,12 +1,12 @@
 import random
-import os
+#import os
 import tkinter as tk
 
 class AdventureGame(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, 
                           master, 
-                          width=750,
+                          width=1000,
                           height=200)
 
         self.master.title('Daycare Game')
@@ -32,9 +32,13 @@ class AdventureGame(tk.Frame):
         self.status = tk.Label(self, textvariable=self.status_var)
 
         # The go button
+        #self.go_button = tk.Button(self,
+                                   #text='Go',
+                                   #command=self.game_action)
+        self.master.bind('<Return>', self.game_action)
         self.go_button = tk.Button(self,
-                                   text='Go',
-                                   command=self.game_action)
+                                   text='Go')
+        self.go_button.bind('<Return>', self.game_action)
 
         # Put the controls on the form
         self.go_button.pack(fill=tk.X, side=tk.BOTTOM)
@@ -128,7 +132,7 @@ class AdventureGame(tk.Frame):
                 self.print_status(self.msg(self.room))
                 self.room['msg'] = 'You are back in the ' + self.room['name']
              
-    def game_action(self):
+    def game_action(self, event):
         #self.stuck = True
         #while stuck:
         #if self.stuck:            
