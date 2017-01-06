@@ -5,7 +5,7 @@ import tkinter as tk
 class AdventureGame(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, 
-                          master, 
+                          master,
                           width=1000,
                           height=200)
 
@@ -14,38 +14,44 @@ class AdventureGame(tk.Frame):
         self.pack()
         self.greeting_var = tk.StringVar()
         self.greeting_var.set('N')
-
+            
         # Question for user input
         self.question_var = tk.StringVar()
         self.question_var.set('go where?')
         self.question = tk.Label(self, textvariable=self.question_var)
         
-         # The nextaction for where to go
+        # The nextaction for where to go
         self.nextaction_var = tk.StringVar()
         self.nextaction = tk.Entry(self,
-                                  textvariable=self.nextaction_var)
+                                       textvariable=self.nextaction_var)
         self.nextaction_var.set('N')
-
+            
         # Status of last action
         self.status_var = tk.StringVar()
         self.status_var.set('status')
         self.status = tk.Label(self, textvariable=self.status_var)
-
+             
         # The go button
         #self.go_button = tk.Button(self,
-                                   #text='Go',
-                                   #command=self.game_action)
+                                    #text='Go',
+                                    #command=self.game_action)
         self.master.bind('<Return>', self.game_action)
         self.go_button = tk.Button(self,
-                                   text='Go')
+                                       text='Go')
         self.go_button.bind('<Return>', self.game_action)
-
+        
+        #Play Again Button
+        self.play_again = tk.Button(self,
+                                    text = 'Click to Restart',
+                                    command = self.init_game)
+        
         # Put the controls on the form
         self.go_button.pack(fill=tk.X, side=tk.BOTTOM)
         self.question.pack(fill=tk.X, side=tk.TOP)
         self.nextaction.pack(fill=tk.X, side=tk.TOP)
         self.status.pack(fill=tk.X, side=tk.TOP)
-                
+        self.play_again.pack(fill=tk.X, side=tk.BOTTOM)
+
         self.init_game()
                    
     def print_status(self, text):
@@ -63,13 +69,13 @@ class AdventureGame(tk.Frame):
             return room['msg']
             
     def get_choice(self, room, dir):
-        if dir=='N':
+        if dir=='N' or dir == 'n':
             choice = 0
-        elif dir=='E':
+        elif dir=='E' or dir == 'e':
             choice = 1
-        elif dir=='S':
+        elif dir=='S'or dir == 's':
             choice = 2
-        elif dir=='W':
+        elif dir=='W' or dir == 'w':
             choice = 3
         else:
             return -1
@@ -151,10 +157,15 @@ class AdventureGame(tk.Frame):
         else:
             self.room = self.room['directions'][choice]
         self.game_status()
-
+        
     def run(self):
             self.mainloop()
+    
 
+        
+            
+    
+ 
 # Launch the game GUI
 app = AdventureGame(tk.Tk())
 app.run()
